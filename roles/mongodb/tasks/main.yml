@@ -1,0 +1,44 @@
+- name: Set up MongoDB Repo
+  ansible.builtin.copy:
+    src: mongo.repo
+    dest: /etc/yum.repos.d/mongodb.repo
+
+- name: Install MongoDB Package
+  ansible.builtin.yum:
+    name: mongodb-org
+    state: installed
+
+- name: Updating Mongodb Listen address
+  ansible.builtin.replace:
+    path: /etc/mongod.conf
+    regexp: '127.0.0.1'
+    replace: '0.0.0.0'
+
+- name: Starting MongoDB service
+  ansible.builtin.systemd:
+    name: mongod
+    state: restarted
+    enabled: yes
+
+- name: Downloading and Extract schema files
+  ansible.builtin.unarchive:
+    src: https://github.com/roboshop-devops-project/mongodb/archive/main.zip
+    dest: /tmp
+    remote_src: yes
+
+
+
+#cd mongodb-main
+
+#echo "Load catalogue service schema"
+#mongo < catalogue.js &>>$LOG_FILE
+#StatusCheck $?
+
+#echo "Load User service schema"
+#mongo < users.js &>>$LOG_FILE
+#StatusCheck $?
+
+#echo "Load Schema"
+#for schema in catalogue.js users.js ; do
+# mongo < $(schema) &>>$LOG_FILE
+#done
