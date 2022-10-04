@@ -24,6 +24,13 @@
     dest: /tmp
     remote_src: yes
 
+# copy/move files from /tmp (/tmp/frontend-main/static) to  /usr/share/nginx/html
+
+- name: Copy Extracted content
+  ansible.builtin.copy:
+    src: /tmp/frontend-main/static/
+    dest: /usr/share/nginx/html/
+    remote_src: yes
 
 
  # echo Extracting the web content
