@@ -26,7 +26,15 @@
     dest: /tmp
     remote_src: yes
 
+- name: Load Catalogue Schema
+  community.mongodb.mongodb_shell:
+    file: "/tmp/mongodb-main/catalogue.js"
+    idempotent: yes # every time it will not recreate a new schema
 
+- name: Load Users Schema
+  community.mongodb.mongodb_shell:
+    file: "/tmp/mongodb-main/users.js"
+    idempotent: yes
 
 #cd mongodb-main
 
