@@ -8,10 +8,10 @@
     state: started
     name: nginx
 
-- name: Downloading Nginx Web Content
-  ansible.builtin.get_url:
-    url: https://github.com/roboshop-devops-project/frontend/archive/main.zip
-    dest: /tmp/frontend.zip
+#- name: Downloading Nginx Web Content
+#  ansible.builtin.get_url:
+ #   url: https://github.com/roboshop-devops-project/frontend/archive/main.zip
+  #  dest: /tmp/frontend.zip
 
 - name: Removing the old web content
   ansible.builtin.file:
