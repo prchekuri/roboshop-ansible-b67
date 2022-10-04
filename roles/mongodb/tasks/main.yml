@@ -26,27 +26,24 @@
     dest: /tmp
     remote_src: yes
 
-- name: Load Catalogue Schema
-  community.mongodb.mongodb_shell:
-    file: "/tmp/mongodb-main/catalogue.js"
-    idempotent: yes # every time it will not recreate a new schema
+#- name: Load Catalogue Schema
+#  community.mongodb.mongodb_shell:
+#   file: "/tmp/mongodb-main/catalogue.js"
+#    idempotent: yes # every time it will not recreate a new schema
 
-- name: Load Users Schema
+#- name: Load Users Schema
+#  community.mongodb.mongodb_shell:
+#    file: "/tmp/mongodb-main/users.js"
+#    idempotent: yes
+
+#Apply loops here
+
+- name: Load Component Schema
   community.mongodb.mongodb_shell:
-    file: "/tmp/mongodb-main/users.js"
+    file: "/tmp/mongodb-main/{{item}}.js"
     idempotent: yes
+  loop:
+    catalogue
+    users
 
-#cd mongodb-main
 
-#echo "Load catalogue service schema"
-#mongo < catalogue.js &>>$LOG_FILE
-#StatusCheck $?
-
-#echo "Load User service schema"
-#mongo < users.js &>>$LOG_FILE
-#StatusCheck $?
-
-#echo "Load Schema"
-#for schema in catalogue.js users.js ; do
-# mongo < $(schema) &>>$LOG_FILE
-#done
