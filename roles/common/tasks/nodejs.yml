@@ -14,12 +14,9 @@
     path: /home/roboshop/{{COMPONENT}}
   become_user: roboshop
 
+- name: Import SystemD task file
+  ansible.builtin.import_tasks: systemd.yml
 
-#echo "Install NodeJS dependencies"
-#npm install &>>$LOG_FILE
-#StatusCheck $?
-#
-#SYSTEMD_SETUP
 
 
 
