@@ -13,7 +13,7 @@
     state: installed
     disable_gpg_check: yes
 
-- name: Updating Mongodb Listen address
+- name: Updating Redis Listen address
   ansible.builtin.replace:
     path: "{{ item }}"
     regexp: '127.0.0.1'
