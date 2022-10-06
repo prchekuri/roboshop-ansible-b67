@@ -5,7 +5,6 @@
     disable_gpg_check: yes
 
 
-
 #LOG_FILE=/tmp/redis
 #
 #source common.sh
