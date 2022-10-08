@@ -8,8 +8,8 @@
 
 - name: Install MySQL Server
   ansible.builtin.dnf:
-    - name: mysql-community-server
-      state: Installed
+    name: mysql-community-server
+    state: Installed
 
 - name: Start MySQL Service
   ansible.builtin.systemd:
