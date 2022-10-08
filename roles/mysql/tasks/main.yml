@@ -9,13 +9,13 @@
 - name: Install MySQL Server
   ansible.builtin.dnf:
     name: mysql-community-server
-    state: Installed
+    state: installed
 
 - name: Start MySQL Service
   ansible.builtin.systemd:
     name: mysqld
-    state:  Started
-    enabled:  yes
+    state: started
+    enabled: yes
 
 
 
