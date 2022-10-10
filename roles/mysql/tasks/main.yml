@@ -26,7 +26,7 @@
 
 - name: Print Out
   debug:
-    msg: "{{ out[content] | b64decode }}"
+    msg: "{{ out['content'] | b64decode }}"
 
 #LOG_FILE=/tmp/mysql
 #source common.sh
