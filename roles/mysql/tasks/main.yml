@@ -17,7 +17,16 @@
     state: started
     enabled: yes
 
+#DEFAULT_PASSWORD=$(sudo grep 'A temporary password'  /var/log/mysqld.log | awk '{print $NF}')
 
+- name: Load the file
+  ansible.builtin.slurp:
+    src:  /var/log/mysqld.log
+  register: out
+
+- name: Print Out
+  debug:
+    msg:  out
 
 #LOG_FILE=/tmp/mysql
 #source common.sh
