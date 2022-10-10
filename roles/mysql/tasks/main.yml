@@ -26,7 +26,7 @@
 
 - name: Print Out
   debug:
-    msg: "{{ out['content'] | b64decode | regex_findall('temporary password.*') | join(' ') | split(' ')}}"
+    msg: "{{ out['content'] | b64decode | regex_findall('temporary password.*') | join(' ') | split(' ') | last}}"
 
 #LOG_FILE=/tmp/mysql
 #source common.sh
