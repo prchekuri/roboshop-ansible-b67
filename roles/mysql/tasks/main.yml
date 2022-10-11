@@ -24,9 +24,18 @@
     src:  /var/log/mysqld.log
   register: out
 
+- name: Check MySQL Credentials are working
+  community.mysql.mysql_info:
+    login_user: root
+    login_password: "{{ ROBOSHOP_MYSQL_PASS }}"
+    filter: version
+
 - name: Print Out
   debug:
     msg: "{{ out['content'] | b64decode | regex_findall('temporary password.*') | join(' ') | split(' ') | last}}"
+
+
+
 
 #LOG_FILE=/tmp/mysql
 #source common.sh
@@ -37,13 +46,6 @@
 #fi
 
 
-
-#echo "start MySQL service"
-#systemctl enable mysqld &>>$LOG_FILE
-#systemctl start mysqld &>>$LOG_FILE
-#StatusCheck $?
-#
-#
 #DEFAULT_PASSWORD=$(sudo grep 'A temporary password'  /var/log/mysqld.log | awk '{print $NF}')
 #
 #echo "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('${ROBOSHOP_MYSQL_PASS}');
