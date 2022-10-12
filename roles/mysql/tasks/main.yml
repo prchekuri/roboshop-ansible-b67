@@ -47,7 +47,7 @@
     msg: "{{mysql_conn_status}}"
 
 - name: Copy SQL file to Reset Password
-  ansible.builtin.copy:
+  ansible.builtin.template:
     src: reset-root-pass.sql
     dest: /tmp/reset-root-pass.sql
   when: mysql_conn_status is failed
