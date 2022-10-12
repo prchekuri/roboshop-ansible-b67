@@ -6,10 +6,15 @@
 - name: Disable MySQL 8 version
   ansible.builtin.shell:  dnf module disable mysql -y
 
-- name: Install MySQL Server
-  ansible.builtin.dnf:
-    name: mysql-community-server
+- name: Install MySQL Server and Python3 Dependency Packages
+  ansible.builtin.yum:
+    name: "{{ item }}"
     state: installed
+  loop:
+    - mysql-community-server
+    - mysql-community-devel
+    - gcc
+    - python36-devel
 
 - name: Start MySQL Service
   ansible.builtin.systemd:
@@ -23,6 +28,11 @@
   ansible.builtin.slurp:
     src:  /var/log/mysqld.log
   register: out
+
+- name: Install mysqlclient pip3
+  ansible.builtin.pip:
+    name: mysqlclient
+    executable: pip3
 
 - name: Check MySQL Credentials are working
   community.mysql.mysql_info:
