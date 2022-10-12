@@ -1,0 +1,47 @@
+- name: Install python
+  ansible.builtin.yum:
+    name:
+      - python36
+      - gcc
+      - python36-devel
+    state:  installed
+
+- name: Import App Pre-Req task file
+  ansible.builtin.import_tasks: app-prereq.yml
+
+- name: Install pip Requirements file
+  ansible.builtin.pip:
+    requirements: /home/roboshop/{{COMPONENT}}/requirements.txt
+    executable: pip3
+
+- name: Import SystemD task file
+  ansible.builtin.import_tasks: systemd.yml
+
+
+
+
+
+
+
+
+
+#echo "Install Python 3"
+#yum install python36 gcc python3-devel -y &>>${LOG_FILE}
+#StatusCheck $?
+#
+#APP_PREREQ
+#
+#cd /home/roboshop/${COMPONENT}
+#
+#echo "Install Python Dependencies for App"
+#pip3 install -r requirements.txt &>>${LOG_FILE}
+#StatusCheck $?
+#
+#APP_UID=$(id -u roboshop)
+#APP_GID=$(id -g roboshop)
+#
+#echo "Update Payment Configuration file"
+#sed -i -e "/uid/ c uid = ${APP_UID}" -e "/gid/ c gid = ${APP_GID}" /home/roboshop/${COMPONENT}/${COMPONENT}.ini &>>${LOG_FILE}
+#StatusCheck $?
+#
+#SYSTEMD_SETUP
