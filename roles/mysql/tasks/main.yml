@@ -72,6 +72,12 @@
   debug:
     msg: "{{plugins_status | regex_findall('validate_password') | length}}"
 
+- name: Uninstall Validate Password Plugin
+  community.mysql.mysql_query:
+    query: 'uninstall plugin validate_password'
+    login_user: root
+    login_password: "{{ ROBOSHOP_MYSQL_PASS }}"
+  when: plugins_status | regex_findall('validate_password') | length > 0
 
 
 #LOG_FILE=/tmp/mysql
