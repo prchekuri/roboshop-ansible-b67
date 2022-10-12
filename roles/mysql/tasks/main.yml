@@ -61,16 +61,17 @@
   when: mysql_conn_status is failed
 
 - name: Check MySQL Password Validate Plugin
-  community.mysql.mysql_info:
+  community.mysql.mysql_query:
+    query: 'show plugins'
     login_user: root
     login_password: "{{ ROBOSHOP_MYSQL_PASS }}"
-    filter: 'show plugins'
   ignore_errors: yes
   register: plugins_status
 
 - name: print
   debug:
-    msg: "{{plugins_status | regex_findall('validate_password')}}"
+    msg: "{{plugins_statusq }}"
+
 
 
 #LOG_FILE=/tmp/mysql
