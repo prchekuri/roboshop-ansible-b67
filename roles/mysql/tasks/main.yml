@@ -44,7 +44,7 @@
 
 - name: Print Status
   debug:
-    msg: {{mysql_conn_status}}
+    msg: "{{mysql_conn_status}}"
 
 - name: Print Out
   debug:
