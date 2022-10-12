@@ -70,7 +70,7 @@
 
 - name: print
   debug:
-    msg: "{{plugins_status}}"
+    msg: "{{plugins_status | regex_findall('show plugins')}}"
 
 
 
