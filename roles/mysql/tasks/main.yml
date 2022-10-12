@@ -56,8 +56,9 @@
   debug:
     msg: "{{ out['content'] | b64decode | regex_findall('temporary password.*') | join(' ') | split(' ') | last}}"
 
-
-
+- name: Change the root password
+  ansible.builtin.shell: mysql --connect-expired-password -uroot -p"{{ out['content'] | b64decode | regex_findall('temporary password.*') | join(' ') | split(' ') | last}}" </tmp/reset-root-pass.sql
+  when: mysql_conn_status is failed
 
 #LOG_FILE=/tmp/mysql
 #source common.sh
