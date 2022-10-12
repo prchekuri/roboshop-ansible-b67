@@ -46,6 +46,12 @@
   debug:
     msg: "{{mysql_conn_status}}"
 
+- name: Copy SQL file to Reset Password
+  ansible.builtin.copy:
+    src: reset-root-pass.sql
+    dest: /tmp/reset-root-pass.sql
+  when: mysql_conn_status is failed
+
 - name: Print Out
   debug:
     msg: "{{ out['content'] | b64decode | regex_findall('temporary password.*') | join(' ') | split(' ') | last}}"
@@ -65,7 +71,7 @@
 #DEFAULT_PASSWORD=$(sudo grep 'A temporary password'  /var/log/mysqld.log | awk '{print $NF}')
 #
 #echo "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('${ROBOSHOP_MYSQL_PASS}');
-#FLUSH PRIVILEGES;" >/tmp/root-pass.sql
+    ##FLUSH PRIVILEGES;" >/tmp/root-pass.sql
 #
 #echo "show databases;" | mysql -uroot -p${ROBOSHOP_MYSQL_PASS} &>>$LOG_FILE
 #if [ $? -ne 0 ]; then
