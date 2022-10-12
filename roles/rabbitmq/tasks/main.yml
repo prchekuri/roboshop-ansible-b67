@@ -16,19 +16,14 @@
     state: started
     enabled: yes
 
+- name: Add Application user
+  community.rabbitmq.rabbitmq_user:
+    user: roboshop
+    password: "{{ROBOSHOP_RABBITMQ_PASSWORD}}"
+    vhost: /
+    configure_priv: .*
+    read_priv: .*
+    write_priv: .*
+    state: present
+    tags: administrator
 
-
-#sudo rabbitmqctl list_users | grep roboshop &>>$LOG_FILE
-#if [ $? -ne 0 ]; then
-#echo "Add apllication user in RabbitMQ"
-#rabbitmqctl add_user roboshop roboshop123 &>>$LOG_FILE
-#StatusCheck $?
-#fi
-#
-#echo "Add Application user tags in RabbitMQ"
-#rabbitmqctl set_user_tags roboshop administrator &>>$LOG_FILE
-#StatusCheck $?
-#
-#echo "Add permissions for App user in RabbitMQ"
-#rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*" &>>$LOG_FILE
-#StatusCheck $?
