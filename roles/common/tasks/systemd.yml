@@ -1,5 +1,5 @@
 - name: Copy the SystemD Service file
-  ansible.builtin.copy:
+  ansible.builtin.template:
     src: "{{COMPONENT}}.service"
     dest: /etc/systemd/system/{{COMPONENT}}.service
 
@@ -10,7 +10,3 @@
     enabled: yes
     daemon-reload: yes
 
-- name: Copy the SystemD Service file
-  ansible.builtin.template:
-    src: "{{COMPONENT}}.service"
-    dest: /etc/systemd/system/{{COMPONENT}}.service
